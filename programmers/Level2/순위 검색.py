@@ -5,7 +5,7 @@ from collections import defaultdict
 import bisect
 
 def solution(info, query):
-    answer = []
+    answer = [0] * len(query)
     condition_to_scores = defaultdict(list)
     
     for e in info:
@@ -15,15 +15,13 @@ def solution(info, query):
     for scores in condition_to_scores.values():
         scores.sort()
     
-    for q in query:
+    for i, q in enumerate(query):
         split_q = q.split(' ')
         threshold = int(split_q[7])
         q_condition = [split_q[i] for i in range(0, 7, 2) if split_q[i] != '-']
         
-        cnt = 0
         for condition, scores in condition_to_scores.items():
             if all(map(lambda c : c in condition, q_condition)):
-                cnt += len(scores) - bisect.bisect_left(scores, threshold)
-        answer.append(cnt)
+                answer[i] += len(scores) - bisect.bisect_left(scores, threshold)
         
     return answer
