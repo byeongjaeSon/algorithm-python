@@ -19,4 +19,4 @@ def solution(m, musicinfos):
         candidates.sort(key = lambda x : x[1], reverse=True)
         return candidates[0][0]
     else:
-        return "(None)"3
+        return "(None)"
