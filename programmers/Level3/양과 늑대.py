@@ -12,14 +12,10 @@ def solution(info, edges):
         
         if wolf >= sheep: return 0
         
-        next_positions = []
-        for node in path:
-            next_positions.append(dic[node])
-        next_positions = sum(next_positions, [])
-    
+        next_positions = [child for node in path for child in dic[node] if child not in path]
+
         max_sheep = sheep
         for next_pos in next_positions:
-            if next_pos in path: continue
             path.append(next_pos)
             max_sheep = max(max_sheep, backtracking(next_pos, sheep, wolf, path))
             path.pop()
