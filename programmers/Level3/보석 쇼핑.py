@@ -22,6 +22,6 @@ def solution(gems):
         
             l += 1
             
-    answer.sort(key = lambda x : (x[1] - x[0])        
+    answer.sort(key = lambda x : (x[1] - x[0]))        
     
     return answer[0]
