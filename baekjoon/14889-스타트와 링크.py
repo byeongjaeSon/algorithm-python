@@ -2,15 +2,9 @@ from itertools import combinations
 import sys
 
 n = int(sys.stdin.readline())
-
-S = [[0] * n for _ in range(n)]
-for i in range(n):
-    arr = list(map(int, sys.stdin.readline().split()))
-    for j in range(n):
-        S[i][j] = arr[j]
+S = [list(map(int, sys.stdin.readline().split())) for _ in range(n)]
 
 players = {i for i in range(n)}
-
 team1 = list(map(set, combinations(players, n//2)))
 team2 = [players - t1 for t1 in team1]
 
