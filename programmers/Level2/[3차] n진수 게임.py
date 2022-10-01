@@ -7,7 +7,6 @@ def convert_recur(num, base):
     q, r = divmod(num, base)
     return convert_recur(q, base) + number[r] if q else number[r]
     
-
 def solution(n, t, m, p):
     seq = ""
     num = 0
@@ -15,6 +14,4 @@ def solution(n, t, m, p):
         seq += convert_recur(num, n)
         num += 1
     
-    ans_list = [seq[(m * i + p) - 1] for i in range(t)]
-    
-    return ''.join(ans_list)
+    return ''.join(seq[p-1 : (m * t + p)-1 : m])
