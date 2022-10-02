@@ -1,10 +1,7 @@
 def put_queen(pos, n):
-    if len(pos) == n:
-        return 1
+    if len(pos) == n: return 1
     
-    y = 0 
-    if len(pos) != 0:
-        y = pos[-1][0] + 1
+    y = 0 if len(pos) == 0 else pos[-1][0] + 1
     
     ret = 0
     for x in range(n):
