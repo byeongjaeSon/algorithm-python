@@ -1,22 +1,16 @@
 class Solution:
     def twoSum(self, nums: List[int], target: int) -> List[int]:
-        def binary_search(lo, hi, target):
-            while lo < hi:
-                mid = (lo+hi)//2
-                if numbers[mid][0] > target:
-                    hi = mid
-                elif numbers[mid][0] < target:
-                    lo = mid+1
-                else:
-                    return numbers[mid][1] 
-            return None
-
         n = len(nums)
-        numbers = [(nums[i], i) for i in range(n)]
-        numbers.sort(key = lambda x : x[0])
+        val_to_idx = defaultdict(list)
+        for i in range(n):
+            val_to_idx[nums[i]].append(i)
+
+        numbers = set(nums)
         for i in range(n):
             remain = target-nums[i]
-            if numbers[-1][0] < remain: continue
-            j = binary_search(0, n, remain)
-            if j != None and i != j:
-                return [i, j]
+            if remain in numbers:
+                if nums[i] == remain:
+                    if len(val_to_idx[remain]) > 1:
+                        return val_to_idx[remain][:2]
+                else:
+                    return [i, val_to_idx[remain][0]]
