@@ -15,6 +15,8 @@ class Solution:
         numbers = [(nums[i], i) for i in range(n)]
         numbers.sort(key = lambda x : x[0])
         for i in range(n):
-            j = binary_search(0, n, target-nums[i])
+            remain = target-nums[i]
+            if numbers[-1][0] < remain: continue
+            j = binary_search(0, n, remain)
             if j != None and i != j:
-                return [i, j] 
+                return [i, j]
