@@ -6,15 +6,15 @@ class Solution:
         
         pattern_to_word = dict()
         word_to_pattern = dict()
-        for i in range(len(pattern)):
-            if pattern[i] not in pattern_to_word:
-                pattern_to_word[pattern[i]] = words[i]
-            elif pattern_to_word[pattern[i]] != words[i]:
+        for w, p in zip(words, pattern):
+            if p not in pattern_to_word:
+                pattern_to_word[p] = w
+            elif pattern_to_word[p] != w:
                 return False
-
-            if words[i] not in word_to_pattern:
-                word_to_pattern[words[i]] = pattern[i]
-            elif word_to_pattern[words[i]] != pattern[i]:
+            
+            if w not in word_to_pattern:
+                word_to_pattern[w] = p
+            elif word_to_pattern[w] != p:
                 return False
             
         return True
