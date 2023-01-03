@@ -1,9 +1,3 @@
 class Solution:
     def minDeletionSize(self, strs: List[str]) -> int:
-        cnt = 0
-        for i in range(len(strs[0])):
-            for j in range(1, len(strs)):
-                if strs[j-1][i] > strs[j][i]: 
-                    cnt += 1 
-                    break
-        return cnt
+        return sum(list(col) != sorted(col) for col in zip(*strs))
