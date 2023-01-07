@@ -1,17 +1,13 @@
 class Solution:
     def canCompleteCircuit(self, gas: List[int], cost: List[int]) -> int:
-        start_candi = [i for i in range(len(gas)) if cost[i] - gas[i] <= 0]
+        if sum(gas) < sum(cost):
+            return -1
 
-        while start_candi:
-            start_pos = start_candi.pop()
-            curr_gas = 0
-            curr_pos = start_pos
-            while True:
-                curr_gas += gas[curr_pos] - cost[curr_pos]
-                if curr_gas < 0: break
-
-                curr_pos = (curr_pos + 1) % len(gas)
-                if curr_pos == start_pos:
-                    return start_pos
-                    
-        return -1
+        acc, start_point = 0, 0
+        for i, (g, c) in enumerate(zip(gas, cost)):
+            acc += g - c
+            if acc < 0:
+                acc = 0
+                start_point = i+1
+        
+        return start_point
