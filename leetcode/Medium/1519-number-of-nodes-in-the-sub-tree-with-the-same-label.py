@@ -9,11 +9,6 @@ class Solution:
         
         def dfs(node, parent):
             alphabet_counter = Counter([labels[node]])
-
-            if len(adj_list) == 1 and adj_list[0] == parent:
-                self.ans[node] = 1
-                return alphabet_counter
-
             for adj_node in adj_list[node]:
                 if adj_node == parent:    
                     continue
