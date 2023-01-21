@@ -23,4 +23,3 @@ class Solution:
         
         makePossibleIP(0)
         return list(ret)
-
