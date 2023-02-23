@@ -1,15 +1,15 @@
 class Solution:
     def findMaximizedCapital(self, k: int, w: int, profits: List[int], capital: List[int]) -> int:
-        finished = [False] * len(profits)
-        
-        while k > 0:
-            max_project_profit = 0
-            project_index = -1
-            for i in range(len(profits)):
-                if capital[i] <= w and max_project_profit <= profits[i] and finished[i] == False:
-                    max_project_profit, project_index = profits[i], i
-            w += max_project_profit
-            finished[project_index] = True
-            k -= 1
-
+        n = len(profits)
+        projects = list(zip(capital, profits))
+        projects.sort()
+        q = []
+        ptr = 0
+        for i in range(k):
+            while ptr < n and projects[ptr][0] <= w:
+                heappush(q, -projects[ptr][1])
+                ptr += 1
+            if not q:
+                break
+            w += -heappop(q)
         return w
