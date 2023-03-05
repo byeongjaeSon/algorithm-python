@@ -1,44 +1,35 @@
 class Solution:
     def minJumps(self, arr: List[int]) -> int:
-
-        if len(arr) > 1 and arr[0] == arr[-1]:
-            return 1
-        elif len(arr) > 2 and arr[0] == arr[-2]:
-            return 2
-
+        n = len(arr)
         int_to_positions = defaultdict(list)
         for i, num in enumerate(arr):
             int_to_positions[num].append(i)
         
-        adj_list = defaultdict(list)
+        adj_list = defaultdict(set)
         for i, num in enumerate(arr):
-            adj_list[i].extend(int_to_positions[num])
-            if i-1 >= 0:
-                adj_list[i].append(i-1)
-            if i+1 < len(arr):
-                adj_list[i].append(i+1)
-        
-        def dijkstra(n, adj_list):
-            dist = [float('inf')] * n
-            dist[0] = 0
-            pq = []
-            heapq.heappush(pq, (dist[0], 0))
-
-            while pq:
-                curr_dist, curr_idx = heapq.heappop(pq)
-
-                if curr_dist > dist[curr_idx]:
-                    continue
-                
-                for next_idx in adj_list[curr_idx]:
-                    if curr_idx == next_idx:
-                        continue
-
-                    if curr_dist + 1 < dist[next_idx]:
-                        dist[next_idx] = curr_dist + 1
-                        heapq.heappush(pq, (dist[next_idx], next_idx))
+            for pos in int_to_positions[num]:
+                adj_list[i].add(pos)
             
-            return dist
+            if i-1 >= 0:
+                adj_list[i].add(i-1)
+            if i+1 < len(arr):
+                adj_list[i].add(i+1)
+
+        def bfs(adj_list, destination):
+            q = deque([0])
+            level = 0
+            
+            while q:
+                q_size = len(q)
+                for _ in range(q_size):
+                    curr = q.popleft()
+                    if curr == destination:
+                        return level
+                    
+                    for next in adj_list[curr]:
+                        q.append(next)
+                level += 1
+
+            return -1
         
-        dist = dijkstra(len(arr), adj_list)
-        return dist[-1]
+        return bfs(adj_list, n-1)
